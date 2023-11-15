@@ -10,31 +10,46 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%X{traceId:-},%X{spanId:-}] ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+  level:
+    springframework:
+      boot:
+        autoconfigure: DEBUG
+    web: DEBUG
+    root: DEBUG
+
 spring:
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
       routes:
         - id: authentication-service
           uri: lb://authentication-service
           predicates:
-            - Path=/auth/**
+            - Path=/api/v1/auth/**
 
         - id: enrollment-service
           uri: lb://enrollment-service
           predicates:
-            - Path=/enrol/**
+            - Path=/api/v1/enroll/**
 
         - id: identity-search-service
           uri: lb://identity-search-service
           predicates:
-            - Path=/search/**
+            - Path=/api/v1/search/**
 
         - id: identity-service
           uri: lb://identity-service
           predicates:
-            - Path=/identity/**
+            - Path=/api/v1/identity/**
 
         - id: organisation-service
           uri: lb://organisation-service
           predicates:
-            - Path=/organisation/**
+            - Path=/api/v1/orgs/**
