@@ -1,6 +1,8 @@
 server:
   port: 8131
 
+debug: true
+
 eureka:
   instance:
     hostname: localhost
@@ -9,16 +11,6 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka/
-
-logging:
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} [%X{traceId:-},%X{spanId:-}] ${LOG_LEVEL_PATTERN:-%5p} %m%n"
-  level:
-    springframework:
-      boot:
-        autoconfigure: DEBUG
-    web: DEBUG
-    root: DEBUG
 
 spring:
   cloud:
